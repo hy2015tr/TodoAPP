@@ -3,7 +3,7 @@
 
 DotnetCore / Angular / DemoApp
 
-![](\todoZIP\TodoAPP.jpg)
+![](/todoZIP/TodoAPP.jpg)
 
 # DotnetCore
 
