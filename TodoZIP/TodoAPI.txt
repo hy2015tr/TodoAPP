@@ -1,0 +1,10 @@
+DOTNET EF dbcontext scaffold "server=HYWIN10\MSSQL2017; database=TODO; user=sa; pwd=123456;" Microsoft.EntityFrameworkCore.SqlServer -o Models --force --context TodoContext
+DOTNET ADD PACKAGE Newtonsoft.Json -v 12.0.1  (without version adds latest version)
+DOTNET WATCH RUN
+
+
+Admin
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQWRtaW4iLCJ1c2VyIjoidG9tIiwibmJmIjoxNTY4NjAzNTgyLCJleHAiOjE1NjkyMDgzODIsImlhdCI6MTU2ODYwMzU4Mn0.Snr_IhN5JIC4W17LVZ4f3tAUI6tpKOsI8kiBLtYtWw4
+
+User
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiVXNlciIsInVzZXIiOiJoYXNhbiIsIm5iZiI6MTU2ODYwMzY3NywiZXhwIjoxNTY5MjA4NDc3LCJpYXQiOjE1Njg2MDM2Nzd9.XrJnFaEjStxEg_McLPWgiKem6E-q8r845fxP9EkYu-E
