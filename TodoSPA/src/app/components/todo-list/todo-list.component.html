@@ -7,7 +7,9 @@
     <app-todo-item 
     *ngFor="let todo of todos" 
     [todo]="todo" 
-    (deleteTodo)="deleteTodo($event)"> 
+    (deleteTodo)="deleteTodo($event)"
+    (updateTodo)="updateTodo($event)">
+
  </app-todo-item>
 </div>
 

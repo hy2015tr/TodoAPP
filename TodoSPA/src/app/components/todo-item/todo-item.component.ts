@@ -9,14 +9,16 @@ import { TouchSequence } from 'selenium-webdriver';
 export class TodoItemComponent {
 
   @Input() todo: Todo;
-  @Output() deleteTodo : EventEmitter<Todo> = new EventEmitter();
+  @Output() deleteTodo = new EventEmitter();
+  @Output() updateTodo = new EventEmitter();
 
   public onDelete(){
     this.deleteTodo.emit(this.todo);
   }
 
-  public onComplete(){
+  public onUpdate(){
     this.todo.isCompleted = !this.todo.isCompleted;
+    this.updateTodo.emit(this.todo);
   }
 
   public checkComplete(){
