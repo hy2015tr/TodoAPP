@@ -1,15 +1,10 @@
-<app-todo-add 
-    (clearTodos)="this.clearTodos()" 
-    (addTodo)="this.addTodo($event)"> 
+<app-todo-add (addTodo)="this.addTodo($event)">
 </app-todo-add>
 
 <div class="container ml-1 mt-2">
-    <app-todo-item 
-    *ngFor="let todo of todos" 
+  <app-todo-item *ngFor="let todo of todos" 
     [todo]="todo" 
     (deleteTodo)="deleteTodo($event)"
     (updateTodo)="updateTodo($event)">
-
- </app-todo-item>
+  </app-todo-item>
 </div>
-

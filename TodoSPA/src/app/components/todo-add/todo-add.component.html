@@ -6,9 +6,9 @@
     <div class="col-9">
       <div class="form-inline">
         <div class="form-group">
-          <input (keyup.enter)="this.onSubmit()" [(ngModel)]="this.newTitle" class="form-control new-title mr-2" placeholder="Add Item ...">
+          <input (keyup.enter)="this.onSubmit()" [(ngModel)]="this.newTodoText" class="form-control new-title mr-2" placeholder="Add Item ...">
           <button (click)="this.onSubmit()" class="btn btn-success font-weight-bold">Add</button>
-          <button (click)="this.onClearAll()" class="btn btn-danger font-weight-bold ml-2">Clear All</button>
+          <button (click)="this.onLogOut()" class="btn btn-danger font-weight-bold ml-2">LogOut</button>
         </div>
       </div>
     </div>

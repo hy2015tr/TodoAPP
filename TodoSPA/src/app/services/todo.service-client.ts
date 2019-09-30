@@ -18,11 +18,11 @@ export interface ITodoAPIClient {
     /**
      * @return Success
      */
-    getTodo(id: number): Observable<TbTodo>;
+    getTodos(): Observable<TbTodo[]>;
     /**
      * @return Success
      */
-    getTodos(): Observable<TbTodo[]>;
+    getTodo(id: number): Observable<TbTodo>;
     /**
      * @param p_TbTodo (optional) 
      * @return Success
@@ -38,18 +38,18 @@ export interface ITodoAPIClient {
      */
     updateTodo(p_TbTodo: TbTodo | null | undefined): Observable<void>;
     /**
-     * @param dtoUser (optional) 
+     * @param p_TbUser (optional) 
      * @return Success
      */
-    login(dtoUser: User | null | undefined): Observable<void>;
+    login(p_TbUser: TbUser | null | undefined): Observable<TbUser>;
     /**
      * @return Success
      */
-    getAll(): Observable<void>;
+    getUsers(): Observable<TbUser[]>;
     /**
      * @return Success
      */
-    getById(id: number): Observable<void>;
+    getUser(id: number): Observable<TbUser>;
 }
 
 @Injectable()
@@ -61,60 +61,6 @@ export class TodoAPIClient implements ITodoAPIClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(TodoAPIClient_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
-    }
-
-    /**
-     * @return Success
-     */
-    getTodo(id: number): Observable<TbTodo> {
-        let url_ = this.baseUrl + "/Api/Todos/GetTodo/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTodo(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTodo(<any>response_);
-                } catch (e) {
-                    return <Observable<TbTodo>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<TbTodo>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetTodo(response: HttpResponseBase): Observable<TbTodo> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TbTodo.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<TbTodo>(<any>null);
     }
 
     /**
@@ -170,6 +116,60 @@ export class TodoAPIClient implements ITodoAPIClient {
             }));
         }
         return _observableOf<TbTodo[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getTodo(id: number): Observable<TbTodo> {
+        let url_ = this.baseUrl + "/Api/Todos/GetTodo/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTodo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTodo(<any>response_);
+                } catch (e) {
+                    return <Observable<TbTodo>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TbTodo>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTodo(response: HttpResponseBase): Observable<TbTodo> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TbTodo.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TbTodo>(<any>null);
     }
 
     /**
@@ -327,14 +327,14 @@ export class TodoAPIClient implements ITodoAPIClient {
     }
 
     /**
-     * @param dtoUser (optional) 
+     * @param p_TbUser (optional) 
      * @return Success
      */
-    login(dtoUser: User | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/users/login";
+    login(p_TbUser: TbUser | null | undefined): Observable<TbUser> {
+        let url_ = this.baseUrl + "/Api/Users/Login";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(dtoUser);
+        const content_ = JSON.stringify(p_TbUser);
 
         let options_ : any = {
             body: content_,
@@ -342,6 +342,7 @@ export class TodoAPIClient implements ITodoAPIClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json", 
+                "Accept": "application/json"
             })
         };
 
@@ -352,14 +353,14 @@ export class TodoAPIClient implements ITodoAPIClient {
                 try {
                     return this.processLogin(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<TbUser>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<TbUser>><any>_observableThrow(response_);
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<void> {
+    protected processLogin(response: HttpResponseBase): Observable<TbUser> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -368,45 +369,49 @@ export class TodoAPIClient implements ITodoAPIClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TbUser.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<TbUser>(<any>null);
     }
 
     /**
      * @return Success
      */
-    getAll(): Observable<void> {
-        let url_ = this.baseUrl + "/api/users";
+    getUsers(): Observable<TbUser[]> {
+        let url_ = this.baseUrl + "/Api/Users/GetUsers";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
+            return this.processGetUsers(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll(<any>response_);
+                    return this.processGetUsers(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<TbUser[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<TbUser[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<void> {
+    protected processGetUsers(response: HttpResponseBase): Observable<TbUser[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -415,21 +420,28 @@ export class TodoAPIClient implements ITodoAPIClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TbUser.fromJS(item));
+            }
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<TbUser[]>(<any>null);
     }
 
     /**
      * @return Success
      */
-    getById(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/users/{id}";
+    getUser(id: number): Observable<TbUser> {
+        let url_ = this.baseUrl + "/Api/Users/GetUser/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
@@ -439,24 +451,25 @@ export class TodoAPIClient implements ITodoAPIClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetById(response_);
+            return this.processGetUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetById(<any>response_);
+                    return this.processGetUser(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<TbUser>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<TbUser>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetById(response: HttpResponseBase): Observable<void> {
+    protected processGetUser(response: HttpResponseBase): Observable<TbUser> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -465,14 +478,17 @@ export class TodoAPIClient implements ITodoAPIClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TbUser.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<TbUser>(<any>null);
     }
 }
 
@@ -524,7 +540,7 @@ export interface ITbTodo {
     isDeleted?: boolean | undefined;
 }
 
-export class User implements IUser {
+export class TbUser implements ITbUser {
     id?: number | undefined;
     firstName?: string | undefined;
     lastName?: string | undefined;
@@ -533,7 +549,7 @@ export class User implements IUser {
     role?: string | undefined;
     token?: string | undefined;
 
-    constructor(data?: IUser) {
+    constructor(data?: ITbUser) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -554,9 +570,9 @@ export class User implements IUser {
         }
     }
 
-    static fromJS(data: any): User {
+    static fromJS(data: any): TbUser {
         data = typeof data === 'object' ? data : {};
-        let result = new User();
+        let result = new TbUser();
         result.init(data);
         return result;
     }
@@ -574,7 +590,7 @@ export class User implements IUser {
     }
 }
 
-export interface IUser {
+export interface ITbUser {
     id?: number | undefined;
     firstName?: string | undefined;
     lastName?: string | undefined;

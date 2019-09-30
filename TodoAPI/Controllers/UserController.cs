@@ -1,13 +1,15 @@
+using TodoAPI.Models;
 using TodoAPI.Entities;
 using TodoAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TodoAPI.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/users")]
+    [Route("Api/Users")]
     public class UserController : ControllerBase
     {
         private readonly IUserService m_UserService;
@@ -23,30 +25,30 @@ namespace TodoAPI.Controllers
         //---------------------------------------------------------------------------------------------------------------------//
 
         [AllowAnonymous]
-        [HttpPost("login")]
-        public IActionResult Login(User dtoUser)
+        [HttpPost("Login")]
+        public ActionResult<TbUser> Login([FromBody] TbUser p_TbUser)
         {
             // Get
-            var user = m_UserService.Authenticate(dtoUser.Username, dtoUser.Password);
+            var user = m_UserService.Authenticate(p_TbUser.Username, p_TbUser.Password);
 
             // Check
             if (user == null)
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
-  
+
             // Return
             return Ok(user);
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
-        [HttpGet]
+        [HttpGet("GetUsers")]
         [Authorize(Roles = Role.Admin)]
-        public IActionResult GetAll()
+        public ActionResult<List<TbUser>> GetUsers()
         {
             // Get
-            var users = m_UserService.GetAll();
+            var users = m_UserService.GetUsers();
 
             // Return
             return Ok(users);
@@ -54,12 +56,12 @@ namespace TodoAPI.Controllers
 
         //---------------------------------------------------------------------------------------------------------------------//
 
-        [HttpGet("{id}")]
+        [HttpGet("GetUser/{id}")]
         [Authorize(Roles = Role.Admin)]
-        public IActionResult GetById(int id)
+        public ActionResult<TbUser> GetUser(int id)
         {
             // Get 
-            var user = m_UserService.GetById(id);
+            var user = m_UserService.GetUser(id);
 
             // Check
             if (user == null) return NotFound();

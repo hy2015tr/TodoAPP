@@ -1,3 +1,5 @@
 TodoAPI/bin/*
 TodoAPI/obj/*
 TodoSPA/node_modules/*
+TodoAPI/.vs/*
+TodoAPI/TodoAPI.csproj.user

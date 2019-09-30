@@ -1,11 +1,12 @@
 using TodoAPI.Models;
-using TodoAPI.Entities;
 using TodoAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TodoAPI.Controllers
 {
+    // [Authorize]
     [ApiController]
     [Route("Api/Todos")]
     public class TodoController : ControllerBase
@@ -22,18 +23,6 @@ namespace TodoAPI.Controllers
 
         //---------------------------------------------------------------------------------------------------------------------//
 
-        [HttpGet("GetTodo/{id}")]
-        public ActionResult<TbTodo> GetTodo(int id)
-        {
-            // Get
-            var todo = m_TodoService.GetTodo(id);
-
-            // Return
-            return Ok(todo);
-        }
-
-        //---------------------------------------------------------------------------------------------------------------------//
-
         [HttpGet("GetTodos")]
         public ActionResult<List<TbTodo>> GetTodos()
         {
@@ -46,8 +35,20 @@ namespace TodoAPI.Controllers
 
         //---------------------------------------------------------------------------------------------------------------------//
 
+        [HttpGet("GetTodo/{id}")]
+        public ActionResult<TbTodo> GetTodo(int id)
+        {
+            // Get
+            var todo = m_TodoService.GetTodo(id);
+
+            // Return
+            return Ok(todo);
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------//
+
         [HttpPost("AddTodo")]
-        public IActionResult AddTodo([FromBody]TbTodo p_TbTodo)
+        public IActionResult AddTodo([FromBody] TbTodo p_TbTodo)
         {
             // Add
             m_TodoService.AddTodo(p_TbTodo);
@@ -71,7 +72,7 @@ namespace TodoAPI.Controllers
         //---------------------------------------------------------------------------------------------------------------------//
 
         [HttpPut("UpdateTodo")]
-        public IActionResult UpdateTodo([FromBody]TbTodo p_TbTodo)
+        public IActionResult UpdateTodo([FromBody] TbTodo p_TbTodo)
         {
             // Update
             m_TodoService.UpdateTodo(p_TbTodo);

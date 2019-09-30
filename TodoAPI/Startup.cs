@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+
 namespace TodoAPI
 {
     public class Startup
@@ -34,7 +35,7 @@ namespace TodoAPI
             p_Services.AddCors();
 
             // DbContext
-            p_Services.AddDbContext<TodoContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            p_Services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             // Mvc
             p_Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing';
+import { AuthGuard } from './services/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { AddTodoComponent } from './components/todo-add/todo-add.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TodoAddComponent } from './components/todo-add/todo-add.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { TodoAPIClient_URL, TodoAPIClient } from './services/todo.service-client';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    AddTodoComponent,
+    LoginComponent,
+    TodoAddComponent,
     TodoItemComponent,
     TodoListComponent, 
   ],
@@ -21,6 +25,7 @@ import { TodoAPIClient_URL, TodoAPIClient } from './services/todo.service-client
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     TodoAPIClient,

@@ -10,39 +10,31 @@ import { VirtualTimeScheduler } from 'rxjs';
 export class TodoListComponent implements OnInit {
   public todos: TbTodo[] = [];
 
-  constructor(private todoAPIClient: TodoAPIClient) {}
+  constructor(private m_TodoAPIClient: TodoAPIClient) {}
 
   ngOnInit() {
     this.getTodos();
   }
 
   public getTodos(){
-    this.todoAPIClient.getTodos().subscribe(resp => {
+    this.m_TodoAPIClient.getTodos().subscribe(resp => {
       this.todos = resp;
     });
   }
 
-  public clearTodos() {
-    this.todos = [];
-  }
-
   public addTodo(todo: TbTodo) {
     this.todos.push(todo);
-    this.todoAPIClient.addTodo(todo).subscribe();
+    this.m_TodoAPIClient.addTodo(todo).subscribe();
   }
 
   public deleteTodo(todo: TbTodo) {
-    // this.todos = this.todos.filter(t => t.title !== todo.title);
-    // this.todoAPIClient.deleteTodo(todo.id).subscribe();
-
-    this.todoAPIClient.deleteTodo(todo.id).subscribe( () => {
+    this.m_TodoAPIClient.deleteTodo(todo.id).subscribe( () => {
       this.getTodos();
     });
-
   }
 
   public updateTodo(todo: TbTodo) {
-    this.todoAPIClient.updateTodo(todo).subscribe();
+    this.m_TodoAPIClient.updateTodo(todo).subscribe();
   }
 
 }

@@ -1,7 +1,7 @@
 
 UPDATE tbTodo set IsDeleted = 0, IsCompleted = 0;
 
-SELECT * FROM [TODO].[dbo].[tbTodo];
+SELECT * FROM [TODODB].[dbo].[tbTodo];
 
 /*
 DELETE FROM tbTodo; 
@@ -15,5 +15,5 @@ INSERT [dbo].[tbTodo] ([Id], [Title], [IsCompleted], [IsDeleted]) VALUES (5, N'U
 INSERT [dbo].[tbTodo] ([Id], [Title], [IsCompleted], [IsDeleted]) VALUES (6, N'AAA', 0, 0)
 INSERT [dbo].[tbTodo] ([Id], [Title], [IsCompleted], [IsDeleted]) VALUES (7, N'BBB', 0, 0)
 SET IDENTITY_INSERT [dbo].[tbTodo] OFF 
-SELECT * FROM [TODO].[dbo].[tbTodo];
+SELECT * FROM [TODODB].[dbo].[tbTodo];
 */

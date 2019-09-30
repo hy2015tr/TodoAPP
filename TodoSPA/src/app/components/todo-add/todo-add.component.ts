@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { Todo } from 'src/app/models/todo';
-
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-todo-add',
@@ -8,20 +8,21 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./todo-add.component.css']
 
 })
-export class AddTodoComponent {
+export class TodoAddComponent {
 
   @Output() addTodo = new EventEmitter();
-  @Output() clearTodos = new EventEmitter();
-  public newTitle: string;
+  public newTodoText: string;
+
+  constructor(private m_Router: Router) {}
 
   public onSubmit() {
     // Check Empty
-    if (this.newTitle ==="") return;
+    if (this.newTodoText ==="") return;
 
     // Create New
     const todo:Todo = {
       id: 0,
-      title : this.newTitle,
+      title : this.newTodoText,
       isCompleted : false,
       isDeleted : false
     }
@@ -30,12 +31,12 @@ export class AddTodoComponent {
     this.addTodo.emit(todo);
     
     // Reset
-    this.newTitle = "";
+    this.newTodoText = "";
   }
 
-  public onClearAll(){
-    // Clear All
-    this.clearTodos.emit();
+  public onLogOut(){
+    localStorage.removeItem('token');
+    this.m_Router.navigate(['login']);
   }
 
 }
