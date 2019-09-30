@@ -2,9 +2,8 @@
 
 DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
-<img src="TodoZIP/TodoAPP01.png" width="450"/>
-<br/><br/>
-<img src="TodoZIP/TodoAPP02.png" width="450"/>
+<img src="TodoZIP/TodoAPP01.png" width="500"/><br/>
+<img src="TodoZIP/TodoAPP02.png" width="500"/><br/>
 
 # DotnetCore v2.2
 
