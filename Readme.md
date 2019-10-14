@@ -27,8 +27,8 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 - Dependency Injection
 - AuthGuard / Routing
 - @Outputs / @Inputs
-- ERR Interceptor
 - JWT Interceptor
+- ERR Interceptor
 - Data Binding
 - LocalStorage
 - Bootstrap 
