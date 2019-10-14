@@ -9,6 +9,7 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 - NetCoreWebApi
 - Authorization
+- RoleBasedAPI
 - NSwagStudio
 - MSSqlServer
 - SwaggerApi
@@ -26,9 +27,9 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 - Dependency Injection
 - AuthGuard / Routing
 - @Outputs / @Inputs
+- ERR Interceptor
+- JWT Interceptor
 - Data Binding
 - LocalStorage
 - Bootstrap 
 - RxJS
-
-

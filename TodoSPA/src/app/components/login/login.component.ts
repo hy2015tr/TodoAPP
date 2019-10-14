@@ -1,8 +1,7 @@
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { TodoAPIClient, TbUser } from "src/app/services/todo.service-client";
-import { catchError } from "rxjs/operators";
+import { TodoAPIClient, TbUser } from "src/app/services/todo.service";
 
 @Component({
   selector: "app-login",
@@ -23,6 +22,12 @@ export class LoginComponent implements OnInit {
       username: ["", Validators.required],
       password: ["", Validators.required]
     });
+
+    const errorText = document.getElementById("errorText");
+    if (errorText) errorText.innerHTML = '';
+
+    const userName: HTMLElement = document.getElementById("username");
+    if (userName) userName.focus();
   }
 
   public onLoginClick() {

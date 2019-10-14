@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Todo } from 'src/app/models/todo';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Local } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-todo-add',
@@ -37,6 +38,7 @@ export class TodoAddComponent {
   public onLogOut(){
     localStorage.removeItem('token');
     this.m_Router.navigate(['login']);
+    //location.reload(true);
   }
 
 }

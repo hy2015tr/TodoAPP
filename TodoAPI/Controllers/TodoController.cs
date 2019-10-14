@@ -3,10 +3,11 @@ using TodoAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using TodoAPI.Entities;
 
 namespace TodoAPI.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("Api/Todos")]
     public class TodoController : ControllerBase
@@ -48,6 +49,7 @@ namespace TodoAPI.Controllers
         //---------------------------------------------------------------------------------------------------------------------//
 
         [HttpPost("AddTodo")]
+        [Authorize(Roles = Role.Admin)]
         public IActionResult AddTodo([FromBody] TbTodo p_TbTodo)
         {
             // Add
@@ -60,6 +62,7 @@ namespace TodoAPI.Controllers
         //---------------------------------------------------------------------------------------------------------------------//
 
         [HttpDelete("DeleteTodo/{id}")]
+        [Authorize(Roles = Role.Admin)]
         public IActionResult DeleteTodo(int id)
         {
             // Delete

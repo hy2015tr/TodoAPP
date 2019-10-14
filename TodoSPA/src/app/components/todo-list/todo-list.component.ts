@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { TodoAPIClient, TbTodo } from "src/app/services/todo.service-client";
-import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
-import { VirtualTimeScheduler } from 'rxjs';
+import { TodoAPIClient, TbTodo } from "src/app/services/todo.service";
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: "app-todo-list",
@@ -16,19 +15,20 @@ export class TodoListComponent implements OnInit {
     this.getTodos();
   }
 
-  public getTodos(){
+  public getTodos() {
     this.m_TodoAPIClient.getTodos().subscribe(resp => {
       this.todos = resp;
     });
   }
 
   public addTodo(todo: TbTodo) {
-    this.todos.push(todo);
-    this.m_TodoAPIClient.addTodo(todo).subscribe();
+    this.m_TodoAPIClient.addTodo(todo).subscribe( ()=> {
+      this.getTodos();
+    });
   }
 
   public deleteTodo(todo: TbTodo) {
-    this.m_TodoAPIClient.deleteTodo(todo.id).subscribe( () => {
+    this.m_TodoAPIClient.deleteTodo(todo.id).subscribe(() => {
       this.getTodos();
     });
   }
@@ -36,5 +36,4 @@ export class TodoListComponent implements OnInit {
   public updateTodo(todo: TbTodo) {
     this.m_TodoAPIClient.updateTodo(todo).subscribe();
   }
-
 }
