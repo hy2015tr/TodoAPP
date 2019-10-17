@@ -3,3 +3,5 @@ TodoAPI/obj/*
 TodoSPA/node_modules/*
 TodoAPI/.vs/*
 TodoAPI/TodoAPI.csproj.user
+.vscode/tasks.json
+.vscode/launch.json
