@@ -1,5 +1,5 @@
 <div>
-  <input (change)="this.onUpdate(todo)" class="mr-2" type="checkbox" id="{{ todo.id }}" [checked]="todo.isCompleted" />
+  <input (change)="this.onUpdate()" class="mr-2" type="checkbox" id="{{ todo.id }}" [checked]="todo.isCompleted" />
   <label [ngClass]="this.checkComplete()" class="mr-2 font-weight-bold" for="{{ todo.id }}">{{ todo.title }} </label>
-  <button (click)="this.onDelete(todo)" class="btn btn-danger btn-sm">X</button>
+  <button (click)="this.onDelete()" class="btn btn-danger btn-sm">X</button>
 </div>

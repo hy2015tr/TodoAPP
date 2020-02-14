@@ -33,3 +33,9 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 - LocalStorage
 - Bootstrap 
 - RxJS
+
+
+# Upgrade to Angular v9.0 
+
+<img src="TodoZIP/TodoAPP03.png" width="500"/><br/>
+<img src="TodoZIP/TodoAPP04.png" width="500"/><br/>
