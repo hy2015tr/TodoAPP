@@ -1,16 +1,15 @@
 ﻿using System.Text;
 using TodoAPI.Models;
 using TodoAPI.Services;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 
 namespace TodoAPI
 {
@@ -34,19 +33,19 @@ namespace TodoAPI
             // Cors
             p_Services.AddCors();
 
-            // DbContext
-            p_Services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            // Controllers
+            p_Services.AddControllers();
 
-            // Mvc
-            p_Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // DbContext
+            p_Services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(this.Configuration["ConnectionStrings:DefaultConnection"]));
 
             // Swagger
-            p_Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new Info { Title = "TodoAPI", Version = "v1" }));
+            p_Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoAPI", Version = "v1" }));
 
             // Key
             var secretKey = this.Configuration.GetSection("AppSettings:SecretKey").Value;
 
-            // JWT
+            // Authentication (JWT)
             p_Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(x =>
             {
@@ -54,13 +53,15 @@ namespace TodoAPI
                 x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
                 };
             });
+
+            // Authorization
+            p_Services.AddAuthorization();
 
             // Add UserService(DI)
             p_Services.AddScoped<IUserService, UserService>();
@@ -74,8 +75,17 @@ namespace TodoAPI
 
         //---------------------------------------------------------------------------------------------------------------------//
 
-        public void Configure(IApplicationBuilder p_Application, IHostingEnvironment p_Environment)
+        public void Configure(IApplicationBuilder p_Application, IWebHostEnvironment p_Environment)
         {
+            // Routing
+            p_Application.UseRouting();
+
+            // Authentication
+            p_Application.UseAuthentication();
+
+            // Authorization
+            p_Application.UseAuthorization();
+
             // Development
             if (p_Environment.IsDevelopment())
             {
@@ -86,7 +96,7 @@ namespace TodoAPI
                 p_Application.UseSwagger();
                 p_Application.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoAPIv1"));
             }
-            else // Production
+            else if (p_Environment.IsProduction())
             {
                 p_Application.UseHsts();
                 p_Application.UseHttpsRedirection();
@@ -95,11 +105,9 @@ namespace TodoAPI
             // Cors
             p_Application.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            // Authentication
-            p_Application.UseAuthentication();
+            // Endpoints
+            p_Application.UseEndpoints(x => x.MapControllers());
 
-            // Mvc
-            p_Application.UseMvc();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//

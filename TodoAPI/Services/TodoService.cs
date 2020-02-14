@@ -23,57 +23,57 @@ namespace TodoAPI.Services
 
         //---------------------------------------------------------------------------------------------------------------------//
 
-        private readonly TodoDBContext m_TodoDBContext;
+        private readonly TodoDBContext TodoDBContext;
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public TodoService(TodoDBContext p_Context)
         {
-            this.m_TodoDBContext = p_Context;
+            this.TodoDBContext = p_Context;
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public TbTodo GetTodo(int p_Id)
         {
-            return m_TodoDBContext.TbTodo.Where(p => p.Id == p_Id).SingleOrDefault();
+            return this.TodoDBContext.TbTodo.Where(p => p.Id == p_Id).SingleOrDefault();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public List<TbTodo> GetTodos()
         {
-            return m_TodoDBContext.TbTodo.Where(p => p.IsDeleted == false).ToList();
+            return this.TodoDBContext.TbTodo.Where(p => p.IsDeleted == false).ToList();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public void AddTodo(TbTodo p_Todo)
         {
-            m_TodoDBContext.TbTodo.Add(p_Todo);
-            m_TodoDBContext.SaveChanges();
+            this.TodoDBContext.TbTodo.Add(p_Todo);
+            this.TodoDBContext.SaveChanges();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public void DeleteTodo(int p_Id)
         {
-            var todo = m_TodoDBContext.TbTodo.Find(p_Id);
+            var todo = this.TodoDBContext.TbTodo.Find(p_Id);
             if (todo == null) return;
             todo.IsDeleted = true;
-            m_TodoDBContext.SaveChanges();
+            this.TodoDBContext.SaveChanges();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public void UpdateTodo(TbTodo p_Todo)
         {
-            var todo = m_TodoDBContext.TbTodo.Find(p_Todo.Id);
+            var todo = this.TodoDBContext.TbTodo.Find(p_Todo.Id);
             if (todo == null) return;
             todo.IsCompleted = p_Todo.IsCompleted;
             todo.IsDeleted = p_Todo.IsDeleted;
             todo.Title = p_Todo.Title;
-            m_TodoDBContext.SaveChanges();
+            this.TodoDBContext.SaveChanges();
         }
 
         //---------------------------------------------------------------------------------------------------------------------//

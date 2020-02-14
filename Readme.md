@@ -39,3 +39,7 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 <img src="TodoZIP/TodoAPP03.png" width="500"/><br/>
 <img src="TodoZIP/TodoAPP04.png" width="500"/><br/>
+
+# Upgrade to NetCore v3.1
+<img src="TodoZIP/TodoAPP05.png" width="500"/><br/>
+<img src="TodoZIP/TodoAPP06.png" width="500"/><br/>
