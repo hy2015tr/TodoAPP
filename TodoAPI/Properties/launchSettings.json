@@ -26,7 +26,19 @@
       "launchBrowser": true,
       "launchUrl": "swagger/v1/swagger.json", 
       "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
-    }
+    },
+
+    "DEV": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5200;https://localhost:5300",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
+    },
+
+    "PRD": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5400;https://localhost:5500",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Production" }
+    }    
 
   }
 }
