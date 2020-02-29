@@ -12,7 +12,7 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const TodoAPIClient_URL = new InjectionToken<string>('TodoAPIClient_URL');
+export const URL_TodoAPIClient = new InjectionToken<string>('URL_TodoAPIClient');
 
 export interface ITodoAPIClient {
     /**
@@ -58,7 +58,7 @@ export class TodoAPIClient implements ITodoAPIClient {
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(TodoAPIClient_URL) baseUrl?: string) {
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(URL_TodoAPIClient) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
     }

@@ -10,7 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TodoAddComponent } from './components/todo-add/todo-add.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
-import { TodoAPIClient_URL, TodoAPIClient } from './services/todo.service';
+import { URL_TodoAPIClient, TodoAPIClient } from './services/todo.service';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { TodoAPIClient_URL, TodoAPIClient } from './services/todo.service';
   ],
   providers: [
     TodoAPIClient,
-    { provide: TodoAPIClient_URL, useValue: 'http://localhost:5000' },    
+    { provide: URL_TodoAPIClient, useValue: window["URL_TodoAPIClient"] },    
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

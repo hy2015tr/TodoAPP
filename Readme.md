@@ -64,3 +64,32 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
     info: Microsoft.Hosting.Lifetime[0] Now listening on: http://localhost:5200
     info: Microsoft.Hosting.Lifetime[0] Now listening on: https://localhost:5300
     info: Microsoft.Hosting.Lifetime[0] Application started. Press Ctrl+C to shut down.
+
+
+# Adding API URL to SPA Config
+
+    [index.html]
+    ....
+      <script type="text/javascript" src="assets/app.config.js"></script>
+    </head>
+    ....
+
+    [app.config.js]
+    ....
+      var URL_TodoAPIClient = "http://localhost:5200";
+    ....
+
+    [app.module.ts]
+    ....
+      { provide: URL_TodoAPIClient, useValue: window["URL_TodoAPIClient"] },
+    ....
+
+
+
+
+
+
+
+
+
+
