@@ -12,14 +12,14 @@ namespace TodoAPI.Controllers
     [Route("Api/Todos")]
     public class TodoController : ControllerBase
     {
-        private readonly ITodoService m_TodoService;
+        private readonly ITodoService TodoService;
 
         //---------------------------------------------------------------------------------------------------------------------//
 
         public TodoController(ITodoService p_TodoService)
         {
             // Constructor
-            m_TodoService = p_TodoService;
+            this.TodoService = p_TodoService;
         }
 
         //---------------------------------------------------------------------------------------------------------------------//
@@ -28,7 +28,7 @@ namespace TodoAPI.Controllers
         public ActionResult<List<TbTodo>> GetTodos()
         {
             // Get
-            var todos = m_TodoService.GetTodos();
+            var todos = this.TodoService.GetTodos();
 
             // Return
             return Ok(todos);
@@ -40,7 +40,7 @@ namespace TodoAPI.Controllers
         public ActionResult<TbTodo> GetTodo(int id)
         {
             // Get
-            var todo = m_TodoService.GetTodo(id);
+            var todo = this.TodoService.GetTodo(id);
 
             // Return
             return Ok(todo);
@@ -53,7 +53,7 @@ namespace TodoAPI.Controllers
         public IActionResult AddTodo([FromBody] TbTodo p_TbTodo)
         {
             // Add
-            m_TodoService.AddTodo(p_TbTodo);
+            this.TodoService.AddTodo(p_TbTodo);
 
             // Return
             return Ok();
@@ -66,7 +66,7 @@ namespace TodoAPI.Controllers
         public IActionResult DeleteTodo(int id)
         {
             // Delete
-            m_TodoService.DeleteTodo(id);
+            this.TodoService.DeleteTodo(id);
 
             // Return
             return Ok();
@@ -78,7 +78,7 @@ namespace TodoAPI.Controllers
         public IActionResult UpdateTodo([FromBody] TbTodo p_TbTodo)
         {
             // Update
-            m_TodoService.UpdateTodo(p_TbTodo);
+            this.TodoService.UpdateTodo(p_TbTodo);
 
             // Return
             return Ok();
