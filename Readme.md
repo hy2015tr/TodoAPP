@@ -85,6 +85,14 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
     ....
 
 
+# Adding Dockerfile to API
+
+<img src="TodoZIP/TodoAPP07.png" width="500"/><br/>
+
+    docker build . -t hy2015tr/todoapi
+
+    docker run -p 8080:5200 --name todoapi hy2015tr/todoapi 
+
 
 
 

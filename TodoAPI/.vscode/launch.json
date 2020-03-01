@@ -4,31 +4,39 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
-
-        {
-            "name": "NetCore Web",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/TodoAPI.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "launchBrowser": {
-                "enabled": false
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
+    {
+        "name": "NetCore Web",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/TodoAPI.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "stopAtEntry": false,
+        "launchBrowser": {
+            "enabled": false
         },
-        {
-            "name": "NetCore Att",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
+        "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+            "/Views": "${workspaceFolder}/Views"
         }
-    ]
+    },
+    {
+        "name": "NetCore Att",
+        "type": "coreclr",
+        "request": "attach",
+        "processId": "${command:pickProcess}"
+    },
+    {
+        "name": "Docker .NET Core Launch",
+        "type": "docker",
+        "request": "launch",
+        "preLaunchTask": "docker-run: debug",
+        "netCore": {
+            "appProject": "${workspaceFolder}/TodoAPI.csproj"
+        }
+    }
+]
 }
