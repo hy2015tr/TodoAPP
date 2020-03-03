@@ -10,11 +10,17 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
 
 namespace TodoAPI
 {
     public class Startup
     {
+
+        //---------------------------------------------------------------------------------------------------------------------//
+
+        private bool InDocker { get { return Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true"; } }
+
         //---------------------------------------------------------------------------------------------------------------------//
 
         public IConfiguration Configuration { get; }
@@ -36,8 +42,11 @@ namespace TodoAPI
             // Controllers
             p_Services.AddControllers();
 
+            // Get ConnectionString
+            string connStr = this.InDocker ? this.Configuration["ConnectionStrings:mssql2017_Docker"] : this.Configuration["ConnectionStrings:mssql2017_Local"];
+
             // DbContext
-            p_Services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(this.Configuration["ConnectionStrings:DefaultConnection"]));
+            p_Services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(connStr));
 
             // Swagger
             p_Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoAPI", Version = "v1" }));

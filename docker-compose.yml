@@ -1,0 +1,28 @@
+version: "3.7"
+
+services: 
+
+    todoapi: 
+        
+        build: ./TODOAPI/.
+        
+        ports: 
+            - "5200:5200"
+        
+        depends_on: 
+            -  "mssql2017"
+
+    mssql2017: 
+        
+        image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+        
+        environment: 
+            ACCEPT_EULA : "Y"
+            MSSQL_PID : "Developer"
+            SA_PASSWORD : "Strong_Password"
+        
+        ports: 
+            - "1435:1433"
+
+        volumes: 
+            - "./TODOZIP/.:/var/opt/mssql/data:rw"

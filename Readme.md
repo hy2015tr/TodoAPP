@@ -59,7 +59,7 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
       "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Production" }
     }    
 
-    dotnet run --launch-profile DEV
+    > dotnet run --launch-profile DEV
 
     info: Microsoft.Hosting.Lifetime[0] Now listening on: http://localhost:5200
     info: Microsoft.Hosting.Lifetime[0] Now listening on: https://localhost:5300
@@ -89,15 +89,14 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 <img src="TodoZIP/TodoAPP07.png" width="500"/><br/>
 
-    docker build . -t hy2015tr/todoapi
+    > docker build . -t hy2015tr/todoapi
 
-    docker run -p 8080:5200 --name todoapi hy2015tr/todoapi 
-
-
+    > docker run -p 8080:5200 --name todoapi hy2015tr/todoapi 
 
 
+# Adding docker-compose to Solution
 
+<img src="TodoZIP/TodoAPP08.png" width="500"/><br/>
 
-
-
+    > docker-compose up --build
 
