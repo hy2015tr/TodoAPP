@@ -5,3 +5,14 @@ TodoAPI/.vs/*
 TodoAPI/TodoAPI.csproj.user
 .vscode/tasks.json
 .vscode/launch.json
+TodoDAT/master.mdf
+TodoDAT/mastlog.ldf
+TodoDAT/model.mdf
+TodoDAT/modellog.ldf
+TodoDAT/msdbdata.mdf
+TodoDAT/msdblog.ldf
+TodoDAT/RestoreCheckpointDB5.CKP
+TodoDAT/tempdb.mdf
+TodoDAT/templog.ldf
+TodoDAT/TODODB_Log.ldf
+TodoDAT/TODODB.mdf

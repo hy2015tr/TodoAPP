@@ -2,19 +2,19 @@ version: "3.7"
 
 services: 
 
-    todoapi: 
+    # todoapi: 
         
-        build: ./TODOAPI/.
+    #     build: ./TODOAPI/.
         
-        ports: 
-            - "5200:5200"
+    #     ports: 
+    #         - "5200:5200"
         
-        depends_on: 
-            -  "mssql2017"
+    #     depends_on: 
+    #         -  "mssql2017"
 
     mssql2017: 
-        
-        image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+
+        image: "mcr.microsoft.com/mssql/server:2017-latest"
         
         environment: 
             ACCEPT_EULA : "Y"
@@ -25,4 +25,20 @@ services:
             - "1435:1433"
 
         volumes: 
-            - "./TODOZIP/.:/var/opt/mssql/data:rw"
+            - "./TODODAT/.:/var/opt/mssql/data:rw"
+
+        command: 
+            - /bin/bash 
+            - -c
+            - |
+               echo "===> SQL Server: Starting" &&                                             \
+               (/opt/mssql/bin/sqlservr &) | grep -q "Service Broker manager has started" &&   \
+               echo "===> SQL Server: Done" &&                                                 \
+               echo "===> Restore TODODB: Starting" &&                                         \
+               /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong_Password -Q            \
+               "RESTORE DATABASE TODODB                                                        \
+                FROM DISK='/var/opt/mssql/data/TODODB.bak'                                     \
+                WITH REPLACE,                                                                  \
+                MOVE 'TODO' TO '/var/opt/mssql/data/TODODB.mdf',                               \
+                MOVE 'TODO_log' TO '/var/opt/mssql/data/TODODB_Log.ldf'" &&                    \
+                echo "===> Restore TODODB: Done"                                               \
