@@ -27,18 +27,4 @@ services:
         volumes: 
             - "./TODODAT/.:/var/opt/mssql/data:rw"
 
-        command: 
-            - /bin/bash 
-            - -c
-            - |
-               echo "===> SQL Server: Starting" &&                                             \
-               (/opt/mssql/bin/sqlservr &) | grep -q "Service Broker manager has started" &&   \
-               echo "===> SQL Server: Done" &&                                                 \
-               echo "===> Restore TODODB: Starting" &&                                         \
-               /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong_Password -Q            \
-               "RESTORE DATABASE TODODB                                                        \
-                FROM DISK='/var/opt/mssql/data/TODODB.bak'                                     \
-                WITH REPLACE,                                                                  \
-                MOVE 'TODO' TO '/var/opt/mssql/data/TODODB.mdf',                               \
-                MOVE 'TODO_log' TO '/var/opt/mssql/data/TODODB_Log.ldf'" &&                    \
-                echo "===> Restore TODODB: Done"                                               \
+        command: /bin/bash -c "/var/opt/mssql/data/TodoDB.sh"

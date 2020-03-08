@@ -2,8 +2,8 @@
 
 DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
-<img src="TodoZIP/TodoAPP01.png" width="500"/><br/>
-<img src="TodoZIP/TodoAPP02.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP01.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP02.png" width="500"/><br/>
 
 # DotnetCore v2.2
 
@@ -37,12 +37,12 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 # Upgrade to Angular v9.0 
 
-<img src="TodoZIP/TodoAPP03.png" width="500"/><br/>
-<img src="TodoZIP/TodoAPP04.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP03.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP04.png" width="500"/><br/>
 
 # Upgrade to NetCore v3.1
-<img src="TodoZIP/TodoAPP05.png" width="500"/><br/>
-<img src="TodoZIP/TodoAPP06.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP05.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP06.png" width="500"/><br/>
 
 
 # Adding DEV & PRD profile to API
@@ -87,7 +87,7 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 # Adding Dockerfile to API
 
-<img src="TodoZIP/TodoAPP07.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP07.png" width="500"/><br/>
 
     > docker build . -t hy2015tr/todoapi
 
@@ -96,15 +96,15 @@ DotnetCore(v2.2) / Angular(v8.3) / DemoApp
 
 # Adding Docker-Compose to Solution
 
-<img src="TodoZIP/TodoAPP08.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP08.png" width="500"/><br/>
 
     > docker-compose up --build
 
 # MSSQL Server Start and Restore Database
 
-<img src="TodoZIP/TodoAPP09.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP09.png" width="500"/><br/>
 
-<img src="TodoZIP/TodoAPP10.png" width="500"/><br/>
+<img src="TodoZIP/Images/TodoAPP10.png" width="500"/><br/>
 
 # Linux Bash Notes
 
@@ -124,4 +124,13 @@ Consider two commands A and B. When you write:
 - A ; B ---> A is executed, then B is executed (unless set -e has been used and A terminates with a non-zero exit status, in which case the shell terminates just after A).
 - A && B ---> A is executed, then B is executed only if A has terminated successfully (zero exit status). This form can be safer than the previous one, e.g. with
 - cd some_dir && rm file ---> The && makes sure that the right files are removed, i.e. files are removed only if the cd has succeeded.
+
+# Adding Bash Script File
+
+<img src="TodoZIP/Images/TodoAPP11.png" width="500"/><br/>
+
+<img src="TodoZIP/Images/TodoAPP12.png" width="500"/><br/>
+
+
+
 

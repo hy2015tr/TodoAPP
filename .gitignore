@@ -16,3 +16,4 @@ TodoDAT/tempdb.mdf
 TodoDAT/templog.ldf
 TodoDAT/TODODB_Log.ldf
 TodoDAT/TODODB.mdf
+TodoDAT/TodoDB.ldf
