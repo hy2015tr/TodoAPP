@@ -132,5 +132,55 @@ Consider two commands A and B. When you write:
 <img src="TodoZIP/Images/TodoAPP12.png" width="500"/><br/>
 
 
+# Building Docker-Compose Services
+
+    > docker-compose up --build
+
+  <a href="TodoZIP/Docs/TodoAPP.html"> Build Result as HTML Format</a>
+
+<img src="TodoZIP/Images/TodoAPP13.png" width="500"/><br/>
+
+<img src="TodoZIP/Images/TodoAPP14.png" width="500"/><br/>
 
 
+# GIT Notes
+
+    >> git --version
+
+    git version 2.23.0.windows.1
+
+    git config --system --edit   (ProgramFiles\Git)
+    git config --global --edit   (Users\HY)
+    git config --local --edit    (Project)
+
+    core.autocrlf=false  (Win + MacOS + Linux)
+
+    MAC ==> LF 
+    LNX ==> LF
+    WIN ==> CRLF
+
+    Never turn autocrlf ON:  
+
+    it causes nothing but headaches and sorrows. There's no excuse to use \r\n on windows,  all decent editors (by definition) can handle \n.
+
+    [ 1 ] Solution Project Level:
+
+    Put a .gitattributes file in the root of your git repository having following contents: text=auto eol=lf
+
+    [ 2 ] Check "core" Field in Git Settings:
+
+    >> git config --list  --show-origin | grep "core."
+
+    file:C:/Program Files/Git/etc/gitconfig core.fscache=true
+    file:C:/Program Files/Git/etc/gitconfig core.symlinks=false
+    file:C:/Program Files/Git/etc/gitconfig core.editor="C:\\Program Files\\Notepad++\\notepad++.exe" -multiInst -notabbar -nosession -noPlugin
+    
+    file:C:/Users/hasan.yildirim/.gitconfig core.editor="C:/Program Files (x86)/GitExtensions/GitExtensions.exe" fileeditor
+    file:C:/Users/hasan.yildirim/.gitconfig core.autocrlf=false
+    
+    file:.git/config  core.repositoryformatversion=0
+    file:.git/config  core.filemode=false
+    file:.git/config  core.bare=false
+    file:.git/config  core.logallrefupdates=true
+    file:.git/config  core.symlinks=false
+    file:.git/config  core.ignorecase=true

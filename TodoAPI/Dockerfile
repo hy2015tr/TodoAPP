@@ -2,9 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 ENV ASPNETCORE_ENVIRONMENT "Development"
-ENV ASPNETCORE_URLS "http://+:5200"
-# EXPOSE 8080
-# EXPOSE 443
+ENV ASPNETCORE_URLS "http://+:5000"
+EXPOSE 5000
 WORKDIR /app
 
 #-------------------BUILD-------------------------------------------#

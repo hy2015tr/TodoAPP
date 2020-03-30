@@ -1,30 +1,34 @@
+#------------------------------------------------------------------------#
+
 version: "3.7"
 
 services: 
 
-    # todoapi: 
-        
-    #     build: ./TODOAPI/.
-        
-    #     ports: 
-    #         - "5200:5200"
-        
-    #     depends_on: 
-    #         -  "mssql2017"
+#---SPA------------------------------------------------------------------#
 
-    mssql2017: 
+    1_spa:
+        container_name  : todoapp_spa
+        image           : hy2015tr/todoapp_spa
+        build           : ./TodoSPA/.
+        ports           : [8080:4200]
+        depends_on      : [2_api]
 
-        image: "mcr.microsoft.com/mssql/server:2017-latest"
-        
-        environment: 
-            ACCEPT_EULA : "Y"
-            MSSQL_PID : "Developer"
-            SA_PASSWORD : "Strong_Password"
-        
-        ports: 
-            - "1435:1433"
+#---API------------------------------------------------------------------#
 
-        volumes: 
-            - "./TODODAT/.:/var/opt/mssql/data:rw"
+    2_api: 
+        container_name  : todoapp_api
+        image           : hy2015tr/todoapp_api
+        build           : ./TodoAPI/.
+        ports           : [5200:5000]
+        depends_on      : [3_dat]
 
-        command: /bin/bash -c "/var/opt/mssql/data/TodoDB.sh"
+#---DAT------------------------------------------------------------------#
+
+    3_dat: 
+        container_name  : todoapp_dat
+        image           : hy2015tr/todoapp_dat
+        build           : ./TodoDAT/.
+        ports           : [1435:1433]
+        volumes         : [./TodoDAT/.:/var/opt/mssql/data:rw]
+
+#------------------------------------------------------------------------#
