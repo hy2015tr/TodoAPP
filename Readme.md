@@ -1,6 +1,6 @@
-# TodoApp
+# TodoApp2020
 
-DotnetCore(v2.2) / Angular(v8.3) / DemoApp
+DemoApp / DotnetCore / Angular / Mssql / Docker / Docker-compose / Git / Bash
 
 <img src="TodoZIP/Images/TodoAPP01.png" width="500"/><br/>
 <img src="TodoZIP/Images/TodoAPP02.png" width="500"/><br/>
